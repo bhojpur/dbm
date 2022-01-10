@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package v1;
+option go_package = "github.com/bhojpur/dbm/pkg/api/v1";
+import "dbm.proto";
+
+message ListDatabaseSpecsRequest{}
+
+message ListDatabaseSpecsResponse {
+    Repository repo = 1;
+    string name = 2;
+    string path = 3;
+    string description = 4;
+    repeated DesiredAnnotation arguments = 5;
+}
+
+// DesiredAnnotation describes an annotation a Database should have
+message DesiredAnnotation {
+    string name = 1;
+    bool required = 2;
+    string description = 3;
+}
+
+message IsReadOnlyRequest {}
+
+message IsReadOnlyResponse {
+    bool readonly = 1;
+}
+
+// DbmUI offers services intended for the Bhojpur DBM web user interface
+service DbmUI {
+    // ListDatabaseSpecs returns a list of Database(s) that can be started through the UI.
+    rpc ListDatabaseSpecs(ListDatabaseSpecsRequest) returns (stream ListDatabaseSpecsResponse) {};
+
+    // IsReadOnly returns true if the UI is readonly.
+    rpc IsReadOnly(IsReadOnlyRequest) returns (IsReadOnlyResponse) {};
+}
