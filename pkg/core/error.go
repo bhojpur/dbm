@@ -1,7 +1,4 @@
-//go:build !linux || !amd64
-// +build !linux !amd64
-
-package graph
+package core
 
 // Copyright (c) 2018 Bhojpur Consulting Private Limited, India. All rights reserved.
 
@@ -23,6 +20,11 @@ package graph
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-func NewSqliteConn(root string) (*Database, error) {
-	panic("Not implemented")
-}
+import "errors"
+
+var (
+	// ErrNoMapPointer represents error when no map pointer
+	ErrNoMapPointer = errors.New("mp should be a map's pointer")
+	// ErrNoStructPointer represents error when no struct pointer
+	ErrNoStructPointer = errors.New("mp should be a struct's pointer")
+)

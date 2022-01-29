@@ -1,7 +1,4 @@
-//go:build !linux || !amd64
-// +build !linux !amd64
-
-package graph
+package core
 
 // Copyright (c) 2018 Bhojpur Consulting Private Limited, India. All rights reserved.
 
@@ -23,6 +20,43 @@ package graph
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-func NewSqliteConn(root string) (*Database, error) {
-	panic("Not implemented")
+import (
+	"testing"
+)
+
+func TestGonicMapperFromObj(t *testing.T) {
+	testCases := map[string]string{
+		"HTTPLib":             "http_lib",
+		"id":                  "id",
+		"ID":                  "id",
+		"IDa":                 "i_da",
+		"iDa":                 "i_da",
+		"IDAa":                "id_aa",
+		"aID":                 "a_id",
+		"aaID":                "aa_id",
+		"aaaID":               "aaa_id",
+		"MyREalFunkYLONgNAME": "my_r_eal_funk_ylo_ng_name",
+	}
+	for in, expected := range testCases {
+		out := gonicCasedName(in)
+		if out != expected {
+			t.Errorf("Given %s, expected %s but got %s", in, expected, out)
+		}
+	}
+}
+func TestGonicMapperToObj(t *testing.T) {
+	testCases := map[string]string{
+		"http_lib":                  "HTTPLib",
+		"id":                        "ID",
+		"ida":                       "Ida",
+		"id_aa":                     "IDAa",
+		"aa_id":                     "AaID",
+		"my_r_eal_funk_ylo_ng_name": "MyREalFunkYloNgName",
+	}
+	for in, expected := range testCases {
+		out := LintGonicMapper.Table2Obj(in)
+		if out != expected {
+			t.Errorf("Given %s, expected %s but got %s", in, expected, out)
+		}
+	}
 }

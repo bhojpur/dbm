@@ -1,7 +1,4 @@
-//go:build !linux || !amd64
-// +build !linux !amd64
-
-package graph
+package core
 
 // Copyright (c) 2018 Bhojpur Consulting Private Limited, India. All rights reserved.
 
@@ -23,6 +20,9 @@ package graph
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-func NewSqliteConn(root string) (*Database, error) {
-	panic("Not implemented")
+// Conversion is an interface. A type implements Conversion will according
+// the custom method to fill into database and retrieve from database.
+type Conversion interface {
+	FromDB([]byte) error
+	ToDB() ([]byte, error)
 }

@@ -1,8 +1,3 @@
-//go:build !linux || !amd64
-// +build !linux !amd64
-
-package graph
-
 // Copyright (c) 2018 Bhojpur Consulting Private Limited, India. All rights reserved.
 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,6 +18,4 @@ package graph
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-func NewSqliteConn(root string) (*Database, error) {
-	panic("Not implemented")
-}
+package pkg

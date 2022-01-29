@@ -1,7 +1,4 @@
-//go:build !linux || !amd64
-// +build !linux !amd64
-
-package graph
+package core
 
 // Copyright (c) 2018 Bhojpur Consulting Private Limited, India. All rights reserved.
 
@@ -23,6 +20,30 @@ package graph
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-func NewSqliteConn(root string) (*Database, error) {
-	panic("Not implemented")
+import (
+	"reflect"
+	"testing"
+)
+
+func TestPK(t *testing.T) {
+	p := NewPK(1, 3, "string")
+	str, err := p.ToString()
+	if err != nil {
+		t.Error(err)
+	}
+	t.Log(str)
+	s := &PK{}
+	err = s.FromString(str)
+	if err != nil {
+		t.Error(err)
+	}
+	t.Log(s)
+	if len(*p) != len(*s) {
+		t.Fatal("p", *p, "should be equal", *s)
+	}
+	for i, ori := range *p {
+		if ori != (*s)[i] {
+			t.Fatal("ori", ori, reflect.ValueOf(ori), "should be equal", (*s)[i], reflect.ValueOf((*s)[i]))
+		}
+	}
 }

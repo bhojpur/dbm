@@ -1,7 +1,4 @@
-//go:build !linux || !amd64
-// +build !linux !amd64
-
-package graph
+package core
 
 // Copyright (c) 2018 Bhojpur Consulting Private Limited, India. All rights reserved.
 
@@ -23,6 +20,25 @@ package graph
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-func NewSqliteConn(root string) (*Database, error) {
-	panic("Not implemented")
+import (
+	"bytes"
+	"encoding/gob"
+)
+
+type PK []interface{}
+
+func NewPK(pks ...interface{}) *PK {
+	p := PK(pks)
+	return &p
+}
+func (p *PK) ToString() (string, error) {
+	buf := new(bytes.Buffer)
+	enc := gob.NewEncoder(buf)
+	err := enc.Encode(*p)
+	return buf.String(), err
+}
+func (p *PK) FromString(content string) error {
+	dec := gob.NewDecoder(bytes.NewBufferString(content))
+	err := dec.Decode(p)
+	return err
 }

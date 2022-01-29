@@ -1,7 +1,4 @@
-//go:build !linux || !amd64
-// +build !linux !amd64
-
-package graph
+package pkg
 
 // Copyright (c) 2018 Bhojpur Consulting Private Limited, India. All rights reserved.
 
@@ -23,6 +20,18 @@ package graph
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-func NewSqliteConn(root string) (*Database, error) {
-	panic("Not implemented")
-}
+var (
+	BuildVersion     string
+	BuildGitRevision string
+	BuildStatus      string
+	BuildTag         string
+	BuildTime        string
+
+	GoVersion string
+	GitBranch string
+)
+
+const (
+	// VERSION represent Bhojpur DBM - Application Framework version.
+	VERSION = "0.0.1"
+)
