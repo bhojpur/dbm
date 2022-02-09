@@ -1,6 +1,6 @@
 # Bhojpur DBM - ORM Framework
 
-The ORM is a simple and powerful Object Relationship Mapping framework.
+The Bhojpur DBM - ORM Framework is a simple and powerful Object Relationship Mapping library used for accessing SQL standard relational database system.
 
 ## Features
 
@@ -23,11 +23,11 @@ The ORM is a simple and powerful Object Relationship Mapping framework.
 
 Drivers for Go's sql package which currently support database/sql includes:
 
-* [Mysql5.*](https://github.com/mysql/mysql-server/tree/5.7) / [Mysql8.*](https://github.com/mysql/mysql-server) / [Mariadb](https://github.com/MariaDB/server) / [Tidb](https://github.com/pingcap/tidb)
+* [MySQL5.*](https://github.com/mysql/mysql-server/tree/5.7) / [MySQL8.*](https://github.com/mysql/mysql-server) / [MariaDB](https://github.com/MariaDB/server) / [TiDB](https://github.com/pingcap/tidb)
   - [github.com/go-sql-driver/mysql](https://github.com/go-sql-driver/mysql)
   - [github.com/ziutek/mymysql/godrv](https://github.com/ziutek/mymysql/godrv)
 
-* [Postgres](https://github.com/postgres/postgres) / [Cockroach](https://github.com/cockroachdb/cockroach)
+* [PostgreSQL](https://github.com/postgres/postgres) / [CockroachDB](https://github.com/cockroachdb/cockroach)
   - [github.com/lib/pq](https://github.com/lib/pq)
   - [github.com/jackc/pgx](https://github.com/jackc/pgx)
 
@@ -35,7 +35,7 @@ Drivers for Go's sql package which currently support database/sql includes:
   - [github.com/mattn/go-sqlite3](https://github.com/mattn/go-sqlite3)
   - [modernc.org/sqlite](https://gitlab.com/cznic/sqlite) (windows unsupported)
 
-* MsSql
+* MS-SQL
   - [github.com/denisenkom/go-mssqldb](https://github.com/denisenkom/go-mssqldb)
 
 * Oracle

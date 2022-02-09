@@ -1,4 +1,4 @@
-# Bhojpur DBM - Core Library
+# Bhojpur DBM - SQL Core Library
 
 The `Core` is a lightweight wrapper of sql.DB.
 
