@@ -1,4 +1,4 @@
-package pkg
+package iterator_test
 
 // Copyright (c) 2018 Bhojpur Consulting Private Limited, India. All rights reserved.
 
@@ -20,18 +20,25 @@ package pkg
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-var (
-	BuildVersion     string
-	BuildGitRevision string
-	BuildStatus      string
-	BuildTag         string
-	BuildTime        string
+import (
+	. "github.com/onsi/ginkgo"
 
-	GoVersion string
-	GitBranch string
+	. "github.com/bhojpur/dbm/pkg/keyvalue/iterator"
+	"github.com/bhojpur/dbm/pkg/keyvalue/testutil"
 )
 
-const (
-	// VERSION represent Bhojpur DBM - Application Framework version.
-	VERSION = "0.0.3"
-)
+var _ = testutil.Defer(func() {
+	Describe("Array iterator", func() {
+		It("Should iterates and seeks correctly", func() {
+			// Build key/value.
+			kv := testutil.KeyValue_Generate(nil, 70, 1, 1, 5, 3, 3)
+
+			// Test the iterator.
+			t := testutil.IteratorTesting{
+				KeyValue: kv.Clone(),
+				Iter:     NewArrayIterator(kv),
+			}
+			testutil.DoIteratorTesting(&t)
+		})
+	})
+})

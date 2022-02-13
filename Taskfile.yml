@@ -14,6 +14,7 @@ tasks:
         cmds:
         - GOFLAGS=-mod=mod go build -o bin/dbmctl client.go 
         - GOFLAGS=-mod=mod go build -o bin/dbmsvr server.go 
+        - GOFLAGS=-mod=mod go build -o bin/dbmdbg internal/main.go 
 
     build-desktop:
         desc: Build the desktop application for current OS

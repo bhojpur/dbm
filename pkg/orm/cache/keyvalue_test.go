@@ -1,4 +1,4 @@
-package pkg
+package cache
 
 // Copyright (c) 2018 Bhojpur Consulting Private Limited, India. All rights reserved.
 
@@ -20,18 +20,32 @@ package pkg
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-var (
-	BuildVersion     string
-	BuildGitRevision string
-	BuildStatus      string
-	BuildTag         string
-	BuildTime        string
+import (
+	"testing"
 
-	GoVersion string
-	GitBranch string
+	"github.com/stretchr/testify/assert"
 )
 
-const (
-	// VERSION represent Bhojpur DBM - Application Framework version.
-	VERSION = "0.0.3"
-)
+func TestKeyValueDBStore(t *testing.T) {
+	store, err := NewKeyValueDBStore("./keyvalue.db")
+	assert.NoError(t, err)
+	var kvs = map[string]interface{}{
+		"a": "b",
+	}
+	for k, v := range kvs {
+		assert.NoError(t, store.Put(k, v))
+	}
+	for k, v := range kvs {
+		val, err := store.Get(k)
+		assert.NoError(t, err)
+		assert.EqualValues(t, v, val)
+	}
+	for k := range kvs {
+		err := store.Del(k)
+		assert.NoError(t, err)
+	}
+	for k := range kvs {
+		_, err := store.Get(k)
+		assert.EqualValues(t, ErrNotExist, err)
+	}
+}

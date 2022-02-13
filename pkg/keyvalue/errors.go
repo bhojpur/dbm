@@ -1,4 +1,4 @@
-package pkg
+package keyvalue
 
 // Copyright (c) 2018 Bhojpur Consulting Private Limited, India. All rights reserved.
 
@@ -20,18 +20,15 @@ package pkg
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-var (
-	BuildVersion     string
-	BuildGitRevision string
-	BuildStatus      string
-	BuildTag         string
-	BuildTime        string
-
-	GoVersion string
-	GitBranch string
+import (
+	"github.com/bhojpur/dbm/pkg/keyvalue/errors"
 )
 
-const (
-	// VERSION represent Bhojpur DBM - Application Framework version.
-	VERSION = "0.0.3"
+// Common errors.
+var (
+	ErrNotFound         = errors.ErrNotFound
+	ErrReadOnly         = errors.New("keyvalue: read-only mode")
+	ErrSnapshotReleased = errors.New("keyvalue: snapshot released")
+	ErrIterReleased     = errors.New("keyvalue: iterator released")
+	ErrClosed           = errors.New("keyvalue: closed")
 )

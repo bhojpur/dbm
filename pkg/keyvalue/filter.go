@@ -1,4 +1,4 @@
-package pkg
+package keyvalue
 
 // Copyright (c) 2018 Bhojpur Consulting Private Limited, India. All rights reserved.
 
@@ -20,18 +20,26 @@ package pkg
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-var (
-	BuildVersion     string
-	BuildGitRevision string
-	BuildStatus      string
-	BuildTag         string
-	BuildTime        string
-
-	GoVersion string
-	GitBranch string
+import (
+	"github.com/bhojpur/dbm/pkg/keyvalue/filter"
 )
 
-const (
-	// VERSION represent Bhojpur DBM - Application Framework version.
-	VERSION = "0.0.3"
-)
+type iFilter struct {
+	filter.Filter
+}
+
+func (f iFilter) Contains(filter, key []byte) bool {
+	return f.Filter.Contains(filter, internalKey(key).ukey())
+}
+
+func (f iFilter) NewGenerator() filter.FilterGenerator {
+	return iFilterGenerator{f.Filter.NewGenerator()}
+}
+
+type iFilterGenerator struct {
+	filter.FilterGenerator
+}
+
+func (g iFilterGenerator) Add(key []byte) {
+	g.FilterGenerator.Add(internalKey(key).ukey())
+}

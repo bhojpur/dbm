@@ -1,4 +1,4 @@
-package pkg
+package keyvalue
 
 // Copyright (c) 2018 Bhojpur Consulting Private Limited, India. All rights reserved.
 
@@ -20,18 +20,12 @@ package pkg
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-var (
-	BuildVersion     string
-	BuildGitRevision string
-	BuildStatus      string
-	BuildTag         string
-	BuildTime        string
+import (
+	"testing"
 
-	GoVersion string
-	GitBranch string
+	"github.com/bhojpur/dbm/pkg/keyvalue/testutil"
 )
 
-const (
-	// VERSION represent Bhojpur DBM - Application Framework version.
-	VERSION = "0.0.3"
-)
+func TestKeyValueDB(t *testing.T) {
+	testutil.RunSuite(t, "KeyValue Test Suite")
+}
